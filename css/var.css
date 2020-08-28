@@ -1,0 +1,10 @@
+:root {
+  --main-color: hsl(0, 50%, 50%);
+  --sub-color: hsl(60, 50%, 50%);
+  --alpha-hex-color: #ff000011;
+  --hsl-color: hsl(120, 44%, 50%);
+  --hsla-color: hsla(120, 10%, 50%, .8);
+  --c0: hsl(0, 10%, 90%);
+  --c30: hsl(30, 10%, 90%);
+  --c60: hsl(60, 10%, 90%);
+}

@@ -1,0 +1,13 @@
+@import "../node_modules/cssremedy/css/remedy.css";
+@import "var.css";
+@import "grid.css";
+
+html {
+  font-size: 16px;
+}
+h1 {color: var(--main-color);}
+h2 {color: var(--sub-color);}
+p {
+  color: var(--hsla-color);
+  background-color: var(--alpha-hex-color);
+}

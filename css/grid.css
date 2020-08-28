@@ -1,0 +1,21 @@
+.grid-pg {
+  display: grid;
+  gap: 10px;
+  grid-template:
+    "menu head" 80px
+    "menu main" 1200px /
+    200px 1fr;
+}
+
+.grid-pg > .head {
+  background-color: var(--c0);
+  grid-area: head;
+}
+.grid-pg > .menu {
+  background-color: var(--c30);
+  grid-area: menu;
+}
+.grid-pg > .main {
+  background-color: var(--c60);
+  grid-area: main;
+}
