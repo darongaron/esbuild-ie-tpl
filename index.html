@@ -4,6 +4,20 @@
   <meta charset="UTF-8">
   <title>esbuild-pg</title>
   <link rel="stylesheet" href="app.css">
+  <script>
+  (function(){
+    var ele_script = document.createElement("script");
+    var user_agent = window.navigator.userAgent.toLowerCase();
+    if (user_agent.indexOf('msie') !== -1 || user_agent.indexOf('trident') !== -1) {
+      ele_script.src = "dist/app-ie.js";
+    } else {
+      ele_script.src = "dist/app.js";
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+      document.getElementsByTagName("head")[0].appendChild(ele_script);
+    });
+  })();
+  </script>
 </head>
 <body>
   <div class="grid-pg">
@@ -12,6 +26,5 @@
     <div class="main"><h2>main</h2><p>text</p></div>
   </div>
   
-  <script src="app.js"></script>
 </body>
 </html>
