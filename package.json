@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node app.js",
-    "build:js_ie": "npm bin/build_js_ie.js",
+    "build:js_ie": "node bin/build_js_ie.js",
     "build:js": "esbuild src/ts/app.ts --sourcemap --outfile=dist/app.js",
     "//build:js": "npm-run-all --serial build:js_esbuild build:js_babel build:js_pac build:js_babel2",
     "build:js_esbuild": "esbuild src/ts/app.ts --outfile=dist/app_build.js",
@@ -29,6 +29,7 @@
     "@babel/preset-env": "^7.11.0",
     "@babel/runtime": "^7.11.2",
     "babel-preset-minify": "^0.5.1",
+    "browser-sync": "^2.26.12",
     "core-js": "^3.6.5",
     "cssnano": "^4.1.10",
     "cssremedy": "0.1.0-beta.2",
