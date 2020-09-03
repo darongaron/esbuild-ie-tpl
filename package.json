@@ -4,7 +4,8 @@
   "description": "esbuild playground",
   "main": "index.js",
   "scripts": {
-    "start": "node app.js",
+    "start": "browser-sync --watch --ignore 'node_modules' --ignore 'src'",
+    "build": "npm-run-all --parallel build:js build:css --serial build:js_ie ",
     "build:js_ie": "node bin/build_js_ie.js",
     "build:js": "esbuild src/ts/app.ts --sourcemap --outfile=dist/app.js",
     "//build:js": "npm-run-all --serial build:js_esbuild build:js_babel build:js_pac build:js_babel2",
