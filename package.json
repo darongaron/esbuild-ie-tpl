@@ -5,17 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "browser-sync --watch --ignore 'node_modules' --ignore 'src'",
-    "build": "npm-run-all --parallel build:js build:css --serial build:js_ie ",
+    "build": "npm-run-all --parallel build:*",
     "build:js_ie": "node bin/build_js_ie.js",
     "build:js": "esbuild src/ts/app.ts --sourcemap --outfile=dist/app.js",
-    "//build:js": "npm-run-all --serial build:js_esbuild build:js_babel build:js_pac build:js_babel2",
-    "build:js_esbuild": "esbuild src/ts/app.ts --outfile=dist/app_build.js",
-    "build:js_babel": "babel dist/app_build.js --out-file dist/app_babel.js",
-    "build:js_pac": "esbuild dist/app_babel.js --bundle --outfile=dist/app_pac.js",
-    "build:js_babel2": "babel dist/app_pac.js --plugins=@babel/transform-function-name --out-file app.js",
-    "//build:js_babel2": "babel dist/app_pac.js --out-file dist/app.js",
-    "release:js": "esbuild dist/app_babel.js --bundle --outfile=dist/app.js",
-    "//release:js": "esbuild dist/app_babel.js --bundle --minify --outfile=dist/app.js",
     "build:css": "postcss src/css/app.css --output dist/app.css",
     "watch:css": "postcss src/css/app.css --output dist/app.css --watch",
     "release:css": "postcss --env production src/css/app.css --output dist/app.css",
@@ -24,14 +16,11 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@babel/cli": "^7.10.5",
     "@babel/core": "^7.11.4",
     "@babel/plugin-transform-runtime": "^7.11.0",
     "@babel/preset-env": "^7.11.0",
-    "@babel/runtime": "^7.11.2",
-    "babel-preset-minify": "^0.5.1",
+    "@babel/runtime-corejs3": "^7.11.2",
     "browser-sync": "^2.26.12",
-    "core-js": "^3.6.5",
     "cssnano": "^4.1.10",
     "cssremedy": "0.1.0-beta.2",
     "esbuild": "^0.6.26",
@@ -43,6 +32,6 @@
   "browserslist": [
     "last 2 version",
     "> 1%",
-    "ie 9-11"
+    "ie 11"
   ]
 }
