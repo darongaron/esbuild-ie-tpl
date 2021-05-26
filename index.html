@@ -13,9 +13,7 @@
     } else {
       ele_script.src = "dist/app.js";
     }
-    document.addEventListener('DOMContentLoaded', function() {
-      document.getElementsByTagName("head")[0].appendChild(ele_script);
-    });
+    document.head.appendChild(ele_script);
   })();
   </script>
 </head>
@@ -23,7 +21,11 @@
   <div class="grid-pg">
     <div class="head"><h1>head</h1></div>
     <div class="menu"><h2>menu</h2></div>
-    <div class="main"><h2>main</h2><p>text</p></div>
+    <div class="main">
+      <h2>main</h2>
+      <p>text</p>
+      <div id="console"></div>
+    </div>
   </div>
   
 </body>

@@ -1,13 +1,17 @@
 {
-  "name": "esbuild-pg",
+  "name": "esbuild-ie-tpl",
   "version": "0.0.0",
-  "description": "esbuild playground",
+  "description": "esbuild-ie-tpl",
   "main": "index.js",
   "scripts": {
-    "start": "browser-sync --watch --ignore 'node_modules' --ignore 'src'",
+    "start": "",
     "build": "npm-run-all --parallel build:*",
+    "watch": "npm-run-all --parallel watch:*",
+    "release": "npm-run-all --parallel release:* --serial build_js_ie",
     "build:js_ie": "node bin/build_js_ie.js",
-    "build:js": "esbuild src/ts/app.ts --sourcemap --outfile=dist/app.js",
+    "build:js": "esbuild src/ts/app.ts --bundle --sourcemap --outfile=dist/app.js",
+    "watch:js": "esbuild src/ts/app.ts --bundle --sourcemap --watch --outfile=dist/app.js",
+    "release:js": "esbuild src/ts/app.ts --bundle --minify --sourcemap --outfile=dist/app.js",
     "build:css": "postcss src/css/app.css --output dist/app.css",
     "watch:css": "postcss src/css/app.css --output dist/app.css --watch",
     "release:css": "postcss --env production src/css/app.css --output dist/app.css",
@@ -15,23 +19,23 @@
   },
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "@babel/core": "^7.11.4",
-    "@babel/plugin-transform-runtime": "^7.11.0",
-    "@babel/preset-env": "^7.11.0",
-    "@babel/runtime-corejs3": "^7.11.2",
-    "browser-sync": "^2.26.12",
-    "cssnano": "^4.1.10",
-    "cssremedy": "0.1.0-beta.2",
-    "esbuild": "^0.6.26",
-    "npm-run-all": "^4.1.5",
-    "postcss-cli": "^7.1.1",
-    "postcss-import": "^12.0.1",
-    "postcss-preset-env": "^6.7.0"
-  },
   "browserslist": [
     "last 2 version",
     "> 1%",
     "ie 11"
-  ]
+  ],
+  "devDependencies": {
+    "@babel/core": "^7.14.3",
+    "@babel/plugin-transform-runtime": "^7.14.3",
+    "@babel/preset-env": "^7.14.2",
+    "@babel/runtime-corejs3": "^7.14.0",
+    "cssnano": "^5.0.4",
+    "cssremedy": "0.1.0-beta.2",
+    "esbuild": "^0.12.1",
+    "npm-run-all": "^4.1.5",
+    "postcss": "^8.3.0",
+    "postcss-cli": "^8.3.1",
+    "postcss-import": "^14.0.2",
+    "postcss-preset-env": "^6.7.0"
+  }
 }
