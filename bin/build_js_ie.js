@@ -61,7 +61,8 @@ const is_debug = true;
     result = await esbuild.build({
       outfile: to_filename,
       sourcemap: true,
-      minify: true,
+      minifyWhitespace: true,
+      minifyIdentifiers: true,
       stdin: {
         contents: result.code,
       }
