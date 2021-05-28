@@ -1,15 +1,15 @@
 const babel = require('@babel/core');
 const fs = require('fs').promises;
 const esbuild = require('esbuild');
-const from_filename = "src/ts/app.ts";
-const to_filename = "dist/app-ie.js";
-const is_debug = true;
+const infile =  process.env.npm_package_config_infile
+const outfile = process.env.npm_package_config_outfile_ie
+const is_debug = process.env.npm_package_config_debug === 'true';
 
-(async (from_filename, to_filename) => {
+(async () => {
   try {
     console.log('start esbuild1 ts -> js (ts build & bundle)');
     let result = await esbuild.build({
-      entryPoints: [from_filename],
+      entryPoints: [infile],
       sourcemap: 'inline',
       bundle: true,
       write: false,
@@ -59,7 +59,7 @@ const is_debug = true;
 
     console.log('start esbuild3 , output files (minify)');
     result = await esbuild.build({
-      outfile: to_filename,
+      outfile: outfile,
       sourcemap: true,
       minifyWhitespace: true,
       minifyIdentifiers: true,
@@ -70,5 +70,5 @@ const is_debug = true;
   } catch (error) {
     console.error(error.toString());
   }
-})(from_filename, to_filename);
+})();
 

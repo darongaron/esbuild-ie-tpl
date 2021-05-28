@@ -44,3 +44,26 @@ Show usage
 ```
 npm run
 ```
+
+### Config
+package.json
+```
+...
+  "config": {
+    "debug": "true",
+    "infile": "src/ts/app.ts",
+    "outfile": "dist/app.js",
+    "outfile_ie": "dist/app-ie.js",
+    "servedir": ".",
+    "serveport": "8000"
+  },
+...
+```
+index.html
+```
+    if (user_agent.indexOf('msie') !== -1 || user_agent.indexOf('trident') !== -1) {
+      ele_script.src = "dist/app-ie.js";
+    } else {
+      ele_script.src = "dist/app.js";
+    }
+```
