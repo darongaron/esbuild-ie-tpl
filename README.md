@@ -50,10 +50,10 @@ package.json
 ```
 ...
   "config": {
-    "debug": "true",
-    "infile": "src/ts/app.ts",
-    "outfile": "dist/app.js",
-    "outfile_ie": "dist/app-ie.js",
+    "debug": "false",
+    "entry_points": ["src/ts/app.ts", "src/js/app.js"],
+    "outdir": "dist",
+    "outbase": "src",
     "servedir": ".",
     "serveport": "8000"
   },
@@ -61,9 +61,11 @@ package.json
 ```
 index.html
 ```
-    if (user_agent.indexOf('msie') !== -1 || user_agent.indexOf('trident') !== -1) {
-      ele_script.src = "dist/app-ie.js";
+    if (is_ie) {
+      ele_script_ts.src = "dist/ts/app-ie.js";
+      ele_script_js.src = "dist/js/app-ie.js";
     } else {
-      ele_script.src = "dist/app.js";
+      ele_script_ts.src = "dist/ts/app.js";
+      ele_script_js.src = "dist/js/app.js";
     }
 ```

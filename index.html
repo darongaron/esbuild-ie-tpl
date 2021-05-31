@@ -6,14 +6,19 @@
   <link rel="stylesheet" href="dist/app.css">
   <script>
   (function(){
-    var ele_script = document.createElement("script");
+    var is_ie = user_agent.indexOf('msie') !== -1 || user_agent.indexOf('trident') !== -1;
+    var ele_script_ts = document.createElement("script");
+    var ele_script_js = document.createElement("script");
     var user_agent = window.navigator.userAgent.toLowerCase();
-    if (user_agent.indexOf('msie') !== -1 || user_agent.indexOf('trident') !== -1) {
-      ele_script.src = "dist/app-ie.js";
+    if (is_ie) {
+      ele_script_ts.src = "dist/ts/app-ie.js";
+      ele_script_js.src = "dist/js/app-ie.js";
     } else {
-      ele_script.src = "dist/app.js";
+      ele_script_ts.src = "dist/ts/app.js";
+      ele_script_js.src = "dist/js/app.js";
     }
-    document.head.appendChild(ele_script);
+    document.head.appendChild(ele_script_ts);
+    document.head.appendChild(ele_script_js);
   })();
   </script>
 </head>
@@ -23,6 +28,7 @@
     <div class="menu"><h2>menu</h2></div>
     <div class="main">
       <h2>main</h2>
+      <div id="app"></div>
       <p>text</p>
       <div id="console"></div>
     </div>

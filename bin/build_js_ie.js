@@ -1,25 +1,26 @@
 const babel = require('@babel/core');
 const fs = require('fs').promises;
 const esbuild = require('esbuild');
-const infile =  process.env.npm_package_config_infile
-const outfile = process.env.npm_package_config_outfile_ie
+const outdir = process.env.npm_package_config_outdir;
+const outbase = process.env.npm_package_config_outbase;
 const is_debug = process.env.npm_package_config_debug === 'true';
 
-(async () => {
+const ieBuild = async (infile, outfile) => {
   try {
-    console.log('start esbuild1 ts -> js (ts build & bundle)');
+    console.log(`${infile} start esbuild1 ts -> js (ts build & bundle)`);
     let result = await esbuild.build({
       entryPoints: [infile],
+      //entryPoints: entry_points,
       sourcemap: 'inline',
       bundle: true,
       write: false,
     });
     if(is_debug){
       console.debug(Object.keys(result));
-      fs.writeFile('dist/app-esbuild1.js', result.outputFiles[0].contents);
+      fs.writeFile(`${outfile}-esbuild1.js`, result.outputFiles[0].contents);
     }
 
-    console.log('start babel1 js -> ie_js (import polyfill & transform)');
+    console.log(`${infile} start babel1 js -> ie_js (import polyfill & transform)`);
     result = await babel.transformAsync((new TextDecoder).decode(result.outputFiles[0].contents), {
       sourceMaps: "inline",
       comments: false,
@@ -29,10 +30,10 @@ const is_debug = process.env.npm_package_config_debug === 'true';
     });
     if(is_debug){
       console.debug(Object.keys(result));
-      fs.writeFile('dist/app-babel1.js', result.code);
+      fs.writeFile(`${outfile}-babel1.js`, result.code);
     }
 
-    console.log('start esbuild2 ie_js -> bundle_js (bundle polyfill)');
+    console.log(`${infile} start esbuild2 ie_js -> bundle_js (bundle polyfill)`);
     result = await esbuild.build({
       sourcemap: 'inline',
       bundle: true,
@@ -44,20 +45,20 @@ const is_debug = process.env.npm_package_config_debug === 'true';
     });
     if(is_debug){
       console.debug(Object.keys(result));
-      fs.writeFile('dist/app-esbuild2.js', result.outputFiles[0].contents);
+      fs.writeFile(`${outfile}-esbuild2.js`, result.outputFiles[0].contents);
     }
 
-    console.log('start babel2 bundle_js -> bundle_ie_js (transform)');
+    console.log(`${infile} start babel2 bundle_js -> bundle_ie_js (transform)`);
     result = await babel.transformAsync((new TextDecoder).decode(result.outputFiles[0].contents), {
       sourceMaps: "inline",
       "presets": [["@babel/preset-env", {}]],
     });
     if(is_debug){
       console.debug(Object.keys(result));
-      fs.writeFile('dist/app-babel2.js', result.code);
+      fs.writeFile(`${outfile}-babel2.js`, result.code);
     }    
 
-    console.log('start esbuild3 , output files (minify)');
+    console.log(`${infile} start esbuild3 , output files (minify) ${outfile}`);
     result = await esbuild.build({
       outfile: outfile,
       sourcemap: true,
@@ -70,5 +71,15 @@ const is_debug = process.env.npm_package_config_debug === 'true';
   } catch (error) {
     console.error(error.toString());
   }
-})();
+};
+
+for(const property in process.env){
+  if(property.indexOf('npm_package_config_entry_points') !== -1){
+    const infile = process.env[property];
+    let outfile = process.env[property].replace(new RegExp('^' + outbase,'i'), outdir);
+    outfile = outfile.replace(/\.tsx|\.ts|\.jsx|\.js$/i, '-ie.js');
+    if (is_debug) console.debug('infile', `infile: ${infile} outfile: ${outfile}`);
+    ieBuild(infile, outfile);
+  }
+}
 
