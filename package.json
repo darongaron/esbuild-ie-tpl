@@ -5,7 +5,10 @@
   "main": "index.js",
   "config": {
     "debug": "false",
-    "entry_points": ["src/ts/app.ts", "src/js/app.js"],
+    "entry_points": [
+      "src/ts/app.ts",
+      "src/js/app.js"
+    ],
     "outdir": "dist",
     "outbase": "src",
     "servedir": ".",
@@ -47,8 +50,5 @@
     "postcss-cli": "^8.3.1",
     "postcss-import": "^14.0.2",
     "postcss-preset-env": "^6.7.0"
-  },
-  "dependencies": {
-    "hyperapp": "^2.0.18"
   }
 }
